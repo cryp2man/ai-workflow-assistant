@@ -8,15 +8,15 @@ Project Status: 🟡 In Progress
 
 # Phase 1 - Project Setup
 
-- [ ] Создать Git-репозиторий
-- [ ] Настроить структуру проекта
-- [ ] Создать виртуальное окружение
-- [ ] Настроить requirements.txt
-- [ ] Настроить .gitignore
-- [ ] Создать .env.example
-- [ ] Настроить Ruff
-- [ ] Настроить Black
-- [ ] Настроить Pytest
+- [x] Создать Git-репозиторий
+- [x] Настроить структуру проекта
+- [x] Создать виртуальное окружение
+- [x] Настроить requirements.txt
+- [x] Настроить .gitignore
+- [x] Создать .env.example
+- [x] Настроить Ruff
+- [x] Настроить Black
+- [x] Настроить Pytest
 
 ---
 
