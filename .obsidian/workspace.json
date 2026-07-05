@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "d98d4ea131af0a62",
+        "id": "071a1bd9b745a2c5",
         "type": "tabs",
         "children": [
           {
-            "id": "2fcd195bc7b9ccc8",
+            "id": "e8556c62597d54e4",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -178,6 +178,11 @@
   },
   "active": "cae2098a29702c4b",
   "lastOpenFiles": [
+    "src/api/v1/endpoints/__pycache__/__init__.cpython-314.pyc",
+    "src/api/v1/endpoints/__pycache__/health.cpython-314.pyc",
+    "src/api/v1/endpoints/__pycache__",
+    "src/api/v1/endpoints/health.py",
+    "prompts/API-001_Health_Endpoint.md",
     "src/api/v1/__pycache__/__init__.cpython-314.pyc",
     "src/api/v1/__pycache__/router.cpython-314.pyc",
     "src/api/v1/__pycache__",
@@ -186,10 +191,6 @@
     "src/api/__pycache__",
     "prompts/TASK-005_API_Structure.md",
     "src/api/v1/endpoints/__init__.py",
-    "src/api/v1/endpoints/Текстовый документ.txt",
-    "src/api/v1/endpoints",
-    "src/api/v1/Новая папка",
-    "src/api/v1/router.py",
     "prompts/TASK-004_Application_Core.md",
     "prompts/TASK-003_FastAPI_Initialization.md",
     "prompts/TASK-002_Project_Setup.md",
