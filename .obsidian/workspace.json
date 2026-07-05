@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "4d79ef128dfea63d",
+        "id": "d98d4ea131af0a62",
         "type": "tabs",
         "children": [
           {
-            "id": "ccbcea14fb3b65a1",
+            "id": "2fcd195bc7b9ccc8",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "prompts/TASK-002_Project_Setup.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "TASK-002_Project_Setup"
+              "title": "Новая вкладка"
             }
           }
         ]
@@ -180,21 +176,24 @@
       "bases:Создать новую базу": false
     }
   },
-  "active": "ccbcea14fb3b65a1",
+  "active": "cae2098a29702c4b",
   "lastOpenFiles": [
-    "src/bot/__init__.py",
-    "src/bot/Текстовый документ.txt",
-    "src/services/__init__.py",
-    "src/services/Текстовый документ.txt",
-    "src/schemas/__init__.py",
-    "src/schemas/Текстовый документ.txt",
-    "src/models/__init__.py",
-    "src/models/Текстовый документ.txt",
-    "src/models/Новая папка",
-    "src/db/__init__.py",
-    "src/db/Текстовый документ.txt",
-    "TASKS.md",
+    "src/api/v1/__pycache__/__init__.cpython-314.pyc",
+    "src/api/v1/__pycache__/router.cpython-314.pyc",
+    "src/api/v1/__pycache__",
+    "src/api/__pycache__/__init__.cpython-314.pyc",
+    "src/api/__pycache__/router.cpython-314.pyc",
+    "src/api/__pycache__",
+    "prompts/TASK-005_API_Structure.md",
+    "src/api/v1/endpoints/__init__.py",
+    "src/api/v1/endpoints/Текстовый документ.txt",
+    "src/api/v1/endpoints",
+    "src/api/v1/Новая папка",
+    "src/api/v1/router.py",
+    "prompts/TASK-004_Application_Core.md",
+    "prompts/TASK-003_FastAPI_Initialization.md",
     "prompts/TASK-002_Project_Setup.md",
+    "TASKS.md",
     "Без названия.canvas",
     "2026-07-05.md",
     "ROADMAP.md",

@@ -1,15 +1,16 @@
-# Ignore virtual environments
+# Virtual environments
 .venv/
 venv/
 env/
 
-# Ignore Python cache
+# Python cache
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
-.ruff_cache/
 *.pyc
+*.pyo
+*.pyd
 
 # Environment variables
 .env
@@ -21,7 +22,14 @@ __pycache__/
 .coverage
 htmlcov/
 
+# Ruff
+.ruff_cache/
+
 # IDEs
 .vscode/
 .idea/
 *.swp
+
+# OS
+.DS_Store
+Thumbs.db

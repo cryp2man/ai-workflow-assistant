@@ -22,11 +22,11 @@ Project Status: 🟡 In Progress
 
 # Phase 2 - Backend
 
-- [ ] Установить FastAPI
-- [ ] Создать приложение
-- [ ] Настроить структуру src
+- [x] Установить FastAPI
+- [x] Создать приложение
+- [x] Настроить структуру src
 - [ ] Создать endpoint /health
-- [ ] Проверить Swagger
+- [x] Проверить Swagger
 
 ---
 
