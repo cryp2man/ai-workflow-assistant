@@ -24,3 +24,11 @@ The format is inspired by Keep a Changelog.
 - Added DeclarativeBase for ORM models.
 - Added DATABASE_URL configuration.
 - Added database environment template.
+- Added asynchronous SQLAlchemy infrastructure.
+- Configured Alembic for asynchronous migrations.
+- Connected Alembic to application settings.
+- Added Docker Compose development environment.
+- Added PostgreSQL 16 service.
+- Added pgAdmin service.
+- Added persistent Docker volume for PostgreSQL.
+- Added isolated Docker network.

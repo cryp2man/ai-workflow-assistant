@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "637bf6fa60cd58bd",
+        "id": "9076fc80d7f1efef",
         "type": "tabs",
         "children": [
           {
-            "id": "f3d36e86fe8403b4",
+            "id": "27936e62ba7ad548",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -176,8 +176,10 @@
       "bases:Создать новую базу": false
     }
   },
-  "active": "f3d36e86fe8403b4",
+  "active": "27936e62ba7ad548",
   "lastOpenFiles": [
+    "prompts/ENV-002_Run_Development_Environment.md",
+    "CHANGELOG.md",
     "_check_compose.py",
     "_check_compose.py.tmp.29344.74d991ae4004",
     "docker",
@@ -189,10 +191,8 @@
     "alembic.ini.tmp.29344.339ccf9aa044",
     "alembic/env.py.tmp.29344.97fd85877b21",
     "alembic/env.py.tmp.29344.f023591e07e3",
-    "alembic/script.py.mako",
     "prompts/DB-002_Alembic_Setup.md",
     "docs/adr/ADR-001_Database_Architecture.md",
-    "CHANGELOG.md",
     "prompts/DB-001_Database_Foundation.md",
     "Без названия.md",
     "prompts/API-001_Health_Endpoint.md",
