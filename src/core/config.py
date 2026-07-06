@@ -6,5 +6,6 @@ class Settings(BaseSettings):
     DEBUG: bool = False
     HOST: str = "127.0.0.1"
     PORT: int = 8000
+    DATABASE_URL: str = "postgresql+asyncpg://user:password@localhost:5432/ai_workflow"
 
 settings = Settings()

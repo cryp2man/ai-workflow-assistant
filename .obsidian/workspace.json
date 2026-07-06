@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "071a1bd9b745a2c5",
+        "id": "637bf6fa60cd58bd",
         "type": "tabs",
         "children": [
           {
-            "id": "e8556c62597d54e4",
+            "id": "f3d36e86fe8403b4",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -176,21 +176,27 @@
       "bases:Создать новую базу": false
     }
   },
-  "active": "cae2098a29702c4b",
+  "active": "f3d36e86fe8403b4",
   "lastOpenFiles": [
-    "src/api/v1/endpoints/__pycache__/__init__.cpython-314.pyc",
-    "src/api/v1/endpoints/__pycache__/health.cpython-314.pyc",
-    "src/api/v1/endpoints/__pycache__",
-    "src/api/v1/endpoints/health.py",
+    "_check_compose.py",
+    "_check_compose.py.tmp.29344.74d991ae4004",
+    "docker",
+    "compose.yaml",
+    "compose.yaml.tmp.29344.f32d0d092523",
+    "prompts/ENV-001_Docker_PostgreSQL.md",
+    "alembic/__pycache__/env.cpython-314.pyc",
+    "alembic/__pycache__",
+    "alembic.ini.tmp.29344.339ccf9aa044",
+    "alembic/env.py.tmp.29344.97fd85877b21",
+    "alembic/env.py.tmp.29344.f023591e07e3",
+    "alembic/script.py.mako",
+    "prompts/DB-002_Alembic_Setup.md",
+    "docs/adr/ADR-001_Database_Architecture.md",
+    "CHANGELOG.md",
+    "prompts/DB-001_Database_Foundation.md",
+    "Без названия.md",
     "prompts/API-001_Health_Endpoint.md",
-    "src/api/v1/__pycache__/__init__.cpython-314.pyc",
-    "src/api/v1/__pycache__/router.cpython-314.pyc",
-    "src/api/v1/__pycache__",
-    "src/api/__pycache__/__init__.cpython-314.pyc",
-    "src/api/__pycache__/router.cpython-314.pyc",
-    "src/api/__pycache__",
     "prompts/TASK-005_API_Structure.md",
-    "src/api/v1/endpoints/__init__.py",
     "prompts/TASK-004_Application_Core.md",
     "prompts/TASK-003_FastAPI_Initialization.md",
     "prompts/TASK-002_Project_Setup.md",
@@ -207,7 +213,6 @@
     "architecture/architecture.drawio.md",
     "docs/07_Deployment.md",
     "docs/06_Testing.md",
-    "CHANGELOG.md",
     "LICENSE.md",
     "README.md"
   ]
