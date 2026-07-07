@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "578f913c0b502378",
+        "id": "9d6dc5e5d21f9ab5",
         "type": "tabs",
         "children": [
           {
-            "id": "6e6c7704ffb72df3",
+            "id": "736d085e20e0e9ce",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -176,8 +176,12 @@
       "bases:Создать новую базу": false
     }
   },
-  "active": "cae2098a29702c4b",
+  "active": "736d085e20e0e9ce",
   "lastOpenFiles": [
+    "CHANGELOG.md",
+    "alembic/env.py.tmp.27744.18814328555b",
+    "src/db/models/__init__.py.tmp.27744.673d24f26a36",
+    "prompts/TASK-REF-001 - Database Architecture Refactoring.md",
     "src/schemas/__pycache__/__init__.cpython-314.pyc",
     "src/schemas/__pycache__/user.cpython-314.pyc",
     "src/schemas/__pycache__",
@@ -187,12 +191,8 @@
     "for_me.md",
     "PROJECT_RULES.md",
     "prompts/ENV-002_Run_Development_Environment.md",
-    "CHANGELOG.md",
     "_check_compose.py",
     "_check_compose.py.tmp.29344.74d991ae4004",
-    "docker",
-    "compose.yaml",
-    "compose.yaml.tmp.29344.f32d0d092523",
     "prompts/ENV-001_Docker_PostgreSQL.md",
     "prompts/DB-002_Alembic_Setup.md",
     "docs/adr/ADR-001_Database_Architecture.md",
@@ -213,7 +213,6 @@
     "docs/01_PRD.md",
     "docs/02_System_Design.md",
     "architecture/architecture.drawio.md",
-    "docs/07_Deployment.md",
-    "docs/06_Testing.md"
+    "docs/07_Deployment.md"
   ]
 }

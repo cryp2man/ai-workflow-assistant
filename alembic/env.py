@@ -13,29 +13,19 @@ from src.db.base import Base
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
-import os
-from dotenv import load_dotenv
 
-# Принудительно читаем .env файл
-load_dotenv()
-database_url = os.getenv("DATABASE_URL")
-
-# Если нашли URL в .env - используем его. Иначе берем из настроек приложения.
-if database_url:
-    config.set_main_option("sqlalchemy.url", database_url)
-else:
-    config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
+# Единственный источник правды для строки подключения - Settings.
+config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# Импортируем модель, чтобы Alembic увидел её структуру
-from src.db.models.user import User
+# Единый импорт моделей из пакета src.db.models регистрирует все таблицы
+# на Base.metadata для поддержки 'autogenerate'.
+from src.db import models  # noqa: F401
 
-# Models must be imported here (once they exist) so their tables register on
-# Base.metadata for 'autogenerate' support.
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,

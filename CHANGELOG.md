@@ -32,3 +32,15 @@ The format is inspired by Keep a Changelog.
 - Added pgAdmin service.
 - Added persistent Docker volume for PostgreSQL.
 - Added isolated Docker network.
+## [Unreleased]
+
+### Changed
+
+- Refactored Alembic configuration to use `Settings` as the single source of truth for `DATABASE_URL`.
+- Removed redundant `.env` loading logic from `alembic/env.py`.
+- Centralized SQLAlchemy model registration through `src/db/models/__init__.py`.
+- Simplified Alembic model imports while preserving autogenerate functionality.
+
+### Internal
+
+- Improved maintainability of the Database Layer without changing application behavior.
