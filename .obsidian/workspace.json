@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "9d6dc5e5d21f9ab5",
+        "id": "446d1e7a5a5016eb",
         "type": "tabs",
         "children": [
           {
-            "id": "736d085e20e0e9ce",
+            "id": "03156c7d8a745ea0",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -176,23 +176,24 @@
       "bases:Создать новую базу": false
     }
   },
-  "active": "736d085e20e0e9ce",
+  "active": "03156c7d8a745ea0",
   "lastOpenFiles": [
     "CHANGELOG.md",
-    "alembic/env.py.tmp.27744.18814328555b",
-    "src/db/models/__init__.py.tmp.27744.673d24f26a36",
+    "src/repositories/__pycache__/workflow_repository.cpython-314.pyc",
+    "src/repositories/__pycache__/user_repository.cpython-314.pyc",
+    "src/repositories/__pycache__/__init__.cpython-314.pyc",
+    "src/repositories/__pycache__/base.cpython-314.pyc",
+    "src/repositories/__pycache__",
+    "src/repositories/__init__.py",
+    "src/repositories/workflow_repository.py",
+    "src/repositories/workflow_repository.py.tmp.27744.294554df7566",
+    "src/repositories/user_repository.py",
+    "src/repositories/user_repository.py.tmp.27744.b30b6a6f0e70",
+    "prompts/REP-001 - Repository Layer Foundation.md",
     "prompts/TASK-REF-001 - Database Architecture Refactoring.md",
-    "src/schemas/__pycache__/__init__.cpython-314.pyc",
-    "src/schemas/__pycache__/user.cpython-314.pyc",
-    "src/schemas/__pycache__",
-    "src/api/v1/__pycache__/users.cpython-314.pyc",
-    "src/api/v1/users.py",
-    "src/schemas/user.py",
     "for_me.md",
     "PROJECT_RULES.md",
     "prompts/ENV-002_Run_Development_Environment.md",
-    "_check_compose.py",
-    "_check_compose.py.tmp.29344.74d991ae4004",
     "prompts/ENV-001_Docker_PostgreSQL.md",
     "prompts/DB-002_Alembic_Setup.md",
     "docs/adr/ADR-001_Database_Architecture.md",
@@ -212,7 +213,6 @@
     "docs/03_Database_Design.md",
     "docs/01_PRD.md",
     "docs/02_System_Design.md",
-    "architecture/architecture.drawio.md",
-    "docs/07_Deployment.md"
+    "architecture/architecture.drawio.md"
   ]
 }

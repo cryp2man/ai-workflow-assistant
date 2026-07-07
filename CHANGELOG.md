@@ -44,3 +44,10 @@ The format is inspired by Keep a Changelog.
 ### Internal
 
 - Improved maintainability of the Database Layer without changing application behavior.
+### Added
+
+- Introduced Repository Layer foundation.
+- Added `BaseRepository`.
+- Added `UserRepository`.
+- Added `WorkflowRepository`.
+- Prepared project structure for Service Layer implementation.
