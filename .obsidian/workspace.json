@@ -178,6 +178,12 @@
   },
   "active": "cae2098a29702c4b",
   "lastOpenFiles": [
+    "src/schemas/__pycache__/__init__.cpython-314.pyc",
+    "src/schemas/__pycache__/user.cpython-314.pyc",
+    "src/schemas/__pycache__",
+    "src/api/v1/__pycache__/users.cpython-314.pyc",
+    "src/api/v1/users.py",
+    "src/schemas/user.py",
     "for_me.md",
     "PROJECT_RULES.md",
     "prompts/ENV-002_Run_Development_Environment.md",
@@ -188,11 +194,6 @@
     "compose.yaml",
     "compose.yaml.tmp.29344.f32d0d092523",
     "prompts/ENV-001_Docker_PostgreSQL.md",
-    "alembic/__pycache__/env.cpython-314.pyc",
-    "alembic/__pycache__",
-    "alembic.ini.tmp.29344.339ccf9aa044",
-    "alembic/env.py.tmp.29344.97fd85877b21",
-    "alembic/env.py.tmp.29344.f023591e07e3",
     "prompts/DB-002_Alembic_Setup.md",
     "docs/adr/ADR-001_Database_Architecture.md",
     "prompts/DB-001_Database_Foundation.md",
@@ -213,7 +214,6 @@
     "docs/02_System_Design.md",
     "architecture/architecture.drawio.md",
     "docs/07_Deployment.md",
-    "docs/06_Testing.md",
-    "LICENSE.md"
+    "docs/06_Testing.md"
   ]
 }
