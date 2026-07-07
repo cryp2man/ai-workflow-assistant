@@ -31,6 +31,9 @@ else:
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
+# Импортируем модель, чтобы Alembic увидел её структуру
+from src.db.models.user import User
+
 # Models must be imported here (once they exist) so their tables register on
 # Base.metadata for 'autogenerate' support.
 target_metadata = Base.metadata

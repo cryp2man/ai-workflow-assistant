@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "9076fc80d7f1efef",
+        "id": "578f913c0b502378",
         "type": "tabs",
         "children": [
           {
-            "id": "27936e62ba7ad548",
+            "id": "6e6c7704ffb72df3",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -176,8 +176,10 @@
       "bases:Создать новую базу": false
     }
   },
-  "active": "27936e62ba7ad548",
+  "active": "cae2098a29702c4b",
   "lastOpenFiles": [
+    "for_me.md",
+    "PROJECT_RULES.md",
     "prompts/ENV-002_Run_Development_Environment.md",
     "CHANGELOG.md",
     "_check_compose.py",
@@ -204,7 +206,6 @@
     "Без названия.canvas",
     "2026-07-05.md",
     "ROADMAP.md",
-    "PROJECT_RULES.md",
     "docs/05_Development_Roadmap.md",
     "docs/04_API_Specification.md",
     "docs/03_Database_Design.md",
@@ -213,7 +214,6 @@
     "architecture/architecture.drawio.md",
     "docs/07_Deployment.md",
     "docs/06_Testing.md",
-    "LICENSE.md",
-    "README.md"
+    "LICENSE.md"
   ]
 }
