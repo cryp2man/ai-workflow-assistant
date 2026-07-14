@@ -21,6 +21,7 @@ dev = [
     "pytest>=8.1.1",
     "ruff>=0.3.5",
     "black>=24.3.0",
+    "pytest-asyncio>=1.4.0",
 ]
 
 [tool.ruff]
@@ -38,3 +39,4 @@ target-version = ['py313']
 testpaths = ["tests"]
 pythonpath = ["src"]
 addopts = "-v"
+asyncio_mode = "auto"
