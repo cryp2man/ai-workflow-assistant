@@ -10,6 +10,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      # Settings() требует DATABASE_URL при импорте; в CI используем тестовую БД
+      DATABASE_URL: postgresql+asyncpg://test_user:test_password@localhost:5432/test_db
+
     services:
       postgres:
         image: postgres:16

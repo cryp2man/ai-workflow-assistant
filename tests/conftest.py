@@ -15,9 +15,16 @@ from sqlalchemy.ext.asyncio import (
     create_async_engine,
 )
 
+from src.db.base import Base
+from src.db.models import (  # noqa: F401 — регистрируют таблицы в Base.metadata
+    User,
+    Workflow,
+    WorkflowRun,
+    WorkflowStep,
+)
+
 # Отдельная строка подключения для тестов — production Settings не используются.
-# test_user/test_db созданы вручную в контейнере ai-workflow-postgres (TEST-005),
-# это локальные тестовые креды, не имеющие отношения к production .env.
+# Тестовые креды, не имеющие отношения к production .env.
 TEST_DATABASE_URL = (
     "postgresql+asyncpg://test_user:test_password@localhost:5432/test_db"
 )
@@ -30,8 +37,12 @@ async def test_engine():
     Создается внутри event loop конкретного теста и утилизируется после него:
     пул asyncpg-соединений не переживает свой loop, иначе следующие тесты
     падают с "Event loop is closed" / "another operation is in progress".
+    Схема создается идемпотентно (checkfirst) — тесты не зависят от ручной
+    подготовки БД и работают в чистом контейнере CI.
     """
     engine = create_async_engine(TEST_DATABASE_URL, echo=False)
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
     yield engine
     await engine.dispose()
 
