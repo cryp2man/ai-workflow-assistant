@@ -5,6 +5,8 @@ from sqlalchemy.future import select
 from src.db.session import get_db
 from src.db.models.workflow import Workflow
 from src.db.models.user import User
+from src.dependencies import get_execution_engine
+from src.engine.execution_engine import ExecutionEngine
 from src.schemas.workflow import WorkflowCreate, WorkflowResponse, WorkflowUpdate
 
 router = APIRouter()
@@ -40,6 +42,25 @@ async def get_user_workflows(user_id: int, db: AsyncSession = Depends(get_db)):
     workflows = result.scalars().all()
     
     return workflows
+
+@router.post("/{workflow_id}/execute")
+async def execute_workflow(
+    workflow_id: int,
+    execution_engine: ExecutionEngine = Depends(get_execution_engine),
+):
+    """
+    Запустить рабочий процесс через ExecutionEngine
+    """
+    try:
+        workflow_run = await execution_engine.execute_workflow(workflow_id)
+    except ValueError:
+        raise HTTPException(status_code=404, detail="Workflow not found")
+
+    return {
+        "run_id": workflow_run.id,
+        "status": workflow_run.status,
+        "result": workflow_run.result,
+    }
 
 @router.patch("/{workflow_id}", response_model=WorkflowResponse)
 async def update_workflow(
