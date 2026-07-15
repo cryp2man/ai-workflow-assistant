@@ -21,6 +21,13 @@ class WorkflowStep(Base):
     )
     step_order: Mapped[int] = mapped_column(Integer, nullable=False)
     title: Mapped[str] = mapped_column(String(255), nullable=False)
+    # Тип шага: "llm" — prompt уходит в LLM, "http" — prompt содержит URL
+    step_type: Mapped[str] = mapped_column(
+        String(50),
+        nullable=False,
+        default="llm",
+        server_default="llm",
+    )
     prompt: Mapped[str] = mapped_column(Text, nullable=False)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),

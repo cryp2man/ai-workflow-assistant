@@ -155,3 +155,27 @@ FastAPI → Services → Repositories → AsyncSession
 
 - Unreliable context passing between steps (~50% of runs lost context
   with llama-3.3 due to the implicit prompt format).
+
+## FEATURE-007 - HTTP Step Type
+
+### Added
+
+- `step_type` field on workflow steps: `llm` (default) or `http`.
+- HTTP steps perform a GET request to the URL in `prompt` (with variable
+  substitution) and pass the response body to the execution context.
+- Alembic migration with `server_default='llm'` for existing rows.
+- Explicit `httpx` dependency.
+
+### Fixed
+
+- Repository `list` annotations crashed on Python 3.13 (builtin shadowed
+  by the `list()` method); deferred annotations via `__future__` import.
+
+## Infrastructure
+
+### Added
+
+- Multi-stage Dockerfile (uv build stage, slim runtime).
+- `app` service in Docker Compose: one-command deployment with automatic
+  migrations on start.
+- `.dockerignore`.

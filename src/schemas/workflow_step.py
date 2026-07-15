@@ -1,13 +1,16 @@
 from datetime import datetime
-from typing import Optional
+from typing import Literal, Optional
 
 from pydantic import BaseModel, ConfigDict
+
+StepType = Literal["llm", "http"]
 
 
 class WorkflowStepBase(BaseModel):
     title: str
     prompt: str
     step_order: int
+    step_type: StepType = "llm"
 
 # workflow_id не принимаем в body: он приходит из Path
 class WorkflowStepCreate(WorkflowStepBase):
@@ -25,3 +28,4 @@ class WorkflowStepUpdate(BaseModel):
     title: Optional[str] = None
     prompt: Optional[str] = None
     step_order: Optional[int] = None
+    step_type: Optional[StepType] = None

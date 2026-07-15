@@ -111,6 +111,7 @@ async def create_workflow_step(
         title=step_in.title,
         prompt=step_in.prompt,
         step_order=step_in.step_order,
+        step_type=step_in.step_type,
     )
     return await workflow_step_service.create_step(new_step)
 

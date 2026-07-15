@@ -2,6 +2,8 @@ import logging
 import time
 from datetime import datetime
 
+import httpx
+
 from src.db.models.workflow_run import WorkflowRun
 from src.llm.base import BaseLLMProvider
 from src.prompts.builder import PromptBuilder
@@ -10,6 +12,11 @@ from src.services.workflow_service import WorkflowService
 from src.services.workflow_step_service import WorkflowStepService
 
 logger = logging.getLogger(__name__)
+
+# Ограничения HTTP-шагов: таймаут запроса и размер ответа,
+# попадающего в контекст выполнения (защита БД и контекста LLM).
+HTTP_STEP_TIMEOUT = 30
+HTTP_STEP_MAX_RESPONSE_CHARS = 10_000
 
 
 class ExecutionEngine:
@@ -64,7 +71,7 @@ class ExecutionEngine:
                 logger.info("Executing step %s: %s", step.step_order, step.title)
                 prompt = self.prompt_builder.build_prompt(step.prompt, variables)
                 start_time = time.perf_counter()
-                response = await self.llm_provider.generate(prompt)
+                response = await self._execute_step(step.step_type, prompt)
                 elapsed = time.perf_counter() - start_time
                 previous_response = response
                 variables["previous_response"] = response
@@ -93,3 +100,18 @@ class ExecutionEngine:
         await self.workflow_run_service.repository.session.commit()
 
         return workflow_run
+
+    async def _execute_step(self, step_type: str, prompt: str) -> str:
+        """Выполнить один шаг в зависимости от его типа."""
+        if step_type == "http":
+            return await self._execute_http_step(prompt)
+        return await self.llm_provider.generate(prompt)
+
+    async def _execute_http_step(self, url: str) -> str:
+        """HTTP-шаг: GET по URL (prompt шага), тело ответа — в контекст."""
+        async with httpx.AsyncClient(
+            timeout=HTTP_STEP_TIMEOUT, follow_redirects=True
+        ) as client:
+            response = await client.get(url.strip())
+            response.raise_for_status()
+        return response.text[:HTTP_STEP_MAX_RESPONSE_CHARS]
