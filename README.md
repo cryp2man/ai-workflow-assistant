@@ -1,5 +1,8 @@
 # AI Workflow Assistant
 
+[![CI](https://github.com/cryp2man/ai-workflow-assistant/actions/workflows/ci.yml/badge.svg)](https://github.com/cryp2man/ai-workflow-assistant/actions/workflows/ci.yml)
+![Python](https://img.shields.io/badge/python-3.13+-blue)
+
 A backend service for building and executing multi-step AI workflows: you define a chain of prompt-based steps via REST API, and the execution engine runs them sequentially through an LLM, passing each response to the next step and storing the run history in PostgreSQL.
 
 Think of it as a simplified, self-hosted core of platforms like n8n AI / Dify — built from scratch to demonstrate clean backend architecture around LLM automation.
