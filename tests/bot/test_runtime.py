@@ -51,3 +51,17 @@ class TestCreateDemoWorkflow:
 
         assert workflow.id is not None
         assert workflow.user_id == user.id
+
+
+class TestWorkflowOwnership:
+    async def test_workflow_belongs_only_to_its_owner(
+        self, session: AsyncSession
+    ):
+        # Данные, на которые опирается защита от IDOR в run_workflow:
+        # workflow одного пользователя не принадлежит другому.
+        owner = await get_or_create_user(session, telegram_id=1, username="a")
+        other = await get_or_create_user(session, telegram_id=2, username="b")
+        workflow = await create_demo_workflow(session, owner.id)
+
+        assert workflow.user_id == owner.id
+        assert workflow.user_id != other.id

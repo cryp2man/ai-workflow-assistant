@@ -91,6 +91,16 @@ async def run_workflow(callback: CallbackQuery) -> None:
     await callback.message.answer(f"Запускаю workflow #{workflow_id}…")
     try:
         async with AsyncSessionLocal() as session:
+            # callback_data подделываема, поэтому проверяем владельца:
+            # пользователь может запускать только свои workflow (защита от IDOR).
+            user = await get_or_create_user(
+                session, callback.from_user.id, callback.from_user.username
+            )
+            service = WorkflowService(WorkflowRepository(session))
+            workflow = await service.get_workflow(workflow_id)
+            if workflow is None or workflow.user_id != user.id:
+                await callback.message.answer("Workflow не найден.")
+                return
             engine = build_engine(session)
             run = await engine.execute_workflow(workflow_id)
     except ValueError:
