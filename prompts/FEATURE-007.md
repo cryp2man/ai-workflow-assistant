@@ -18,6 +18,17 @@
   - `llm`: как раньше, через `BaseLLMProvider`
 - Новая явная зависимость: `httpx`
 
+### SSRF-защита (по итогам security-review)
+
+URL шага задаётся пользователем, поэтому перед запросом валидируем
+(`validate_http_step_url`):
+- только схемы `http`/`https`;
+- резолвим хост и отклоняем loopback / private / link-local
+  (метадата облака 169.254.169.254) / multicast / reserved;
+- редиректы отключены (иначе редирект на внутренний адрес обошёл бы проверку);
+- отклонённый URL → HTTP 400 (`UnsafeUrlError`).
+Тесты: `tests/engine/test_url_validation.py`.
+
 ## Не менялось
 
 Repository, Service, WorkflowRun, API-роутеры (кроме проброса поля).

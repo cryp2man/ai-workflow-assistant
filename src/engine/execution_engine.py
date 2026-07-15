@@ -1,6 +1,9 @@
+import asyncio
+import ipaddress
 import logging
 import time
 from datetime import datetime
+from urllib.parse import urlparse
 
 import httpx
 
@@ -17,6 +20,45 @@ logger = logging.getLogger(__name__)
 # попадающего в контекст выполнения (защита БД и контекста LLM).
 HTTP_STEP_TIMEOUT = 30
 HTTP_STEP_MAX_RESPONSE_CHARS = 10_000
+
+
+class UnsafeUrlError(Exception):
+    """URL HTTP-шага не прошел SSRF-валидацию."""
+
+
+async def validate_http_step_url(url: str) -> None:
+    """Защита от SSRF: только http(s) и только публичные адреса.
+
+    URL шага задается пользователем, поэтому без проверки сервер можно
+    заставить обратиться к localhost, приватной сети или metadata-эндпоинту
+    облака (169.254.169.254).
+    """
+    parsed = urlparse(url)
+    if parsed.scheme not in ("http", "https"):
+        raise UnsafeUrlError(f"Unsupported URL scheme: {parsed.scheme!r}")
+    if not parsed.hostname:
+        raise UnsafeUrlError("URL has no hostname")
+
+    try:
+        addr_infos = await asyncio.get_running_loop().getaddrinfo(
+            parsed.hostname, None
+        )
+    except OSError as e:
+        raise UnsafeUrlError(f"Cannot resolve host: {parsed.hostname!r}") from e
+
+    for info in addr_infos:
+        ip = ipaddress.ip_address(info[4][0])
+        if (
+            ip.is_private
+            or ip.is_loopback
+            or ip.is_link_local
+            or ip.is_multicast
+            or ip.is_reserved
+            or ip.is_unspecified
+        ):
+            raise UnsafeUrlError(
+                f"URL resolves to a non-public address: {parsed.hostname!r}"
+            )
 
 
 class ExecutionEngine:
@@ -108,10 +150,16 @@ class ExecutionEngine:
         return await self.llm_provider.generate(prompt)
 
     async def _execute_http_step(self, url: str) -> str:
-        """HTTP-шаг: GET по URL (prompt шага), тело ответа — в контекст."""
+        """HTTP-шаг: GET по URL (prompt шага), тело ответа — в контекст.
+
+        Редиректы отключены: редирект на внутренний адрес обошел бы
+        SSRF-валидацию исходного URL.
+        """
+        url = url.strip()
+        await validate_http_step_url(url)
         async with httpx.AsyncClient(
-            timeout=HTTP_STEP_TIMEOUT, follow_redirects=True
+            timeout=HTTP_STEP_TIMEOUT, follow_redirects=False
         ) as client:
-            response = await client.get(url.strip())
+            response = await client.get(url)
             response.raise_for_status()
         return response.text[:HTTP_STEP_MAX_RESPONSE_CHARS]

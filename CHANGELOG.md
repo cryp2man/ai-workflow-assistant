@@ -163,8 +163,16 @@ FastAPI → Services → Repositories → AsyncSession
 - `step_type` field on workflow steps: `llm` (default) or `http`.
 - HTTP steps perform a GET request to the URL in `prompt` (with variable
   substitution) and pass the response body to the execution context.
-- Alembic migration with `server_default='llm'` for existing rows.
+- Alembic migration with a server default of `llm` for existing rows.
 - Explicit `httpx` dependency.
+
+### Security
+
+- SSRF protection for HTTP steps: URL scheme restricted to http/https;
+  hostname resolved and rejected if it maps to a loopback, private,
+  link-local (blocks cloud metadata 169.254.169.254), multicast or
+  reserved address. Redirects disabled to prevent validation bypass.
+  Rejected URLs return HTTP 400.
 
 ### Fixed
 

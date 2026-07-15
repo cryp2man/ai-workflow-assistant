@@ -11,7 +11,7 @@ from src.dependencies import (
     get_workflow_run_service,
     get_workflow_step_service,
 )
-from src.engine.execution_engine import ExecutionEngine
+from src.engine.execution_engine import ExecutionEngine, UnsafeUrlError
 from src.services.workflow_run_service import WorkflowRunService
 from src.services.workflow_step_service import WorkflowStepService
 from src.schemas.workflow import WorkflowCreate, WorkflowResponse, WorkflowUpdate
@@ -63,6 +63,8 @@ async def execute_workflow(
         workflow_run = await execution_engine.execute_workflow(workflow_id)
     except ValueError:
         raise HTTPException(status_code=404, detail="Workflow not found")
+    except UnsafeUrlError as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
     return {
         "run_id": workflow_run.id,
