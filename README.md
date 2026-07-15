@@ -7,6 +7,8 @@ A backend service for building and executing multi-step AI workflows: you define
 
 Think of it as a simplified, self-hosted core of platforms like n8n AI / Dify — built from scratch to demonstrate clean backend architecture around LLM automation.
 
+**🔗 Live demo:** _<!-- DEMO_URL -->_ (interactive API docs — try it in the browser)
+
 ## Features
 
 - **Workflow engine** — executes ordered chains of steps; template variables (`{{previous_response}}`, `{{stepN}}`, `{{workflow_name}}`) pass context between steps
@@ -69,7 +71,14 @@ For local development without the app container:
 docker compose up -d postgres pgadmin
 uv run alembic upgrade head
 uv run uvicorn src.main:app --reload
+# optional: seed a demo user + example workflow
+uv run python -m scripts.seed_demo
 ```
+
+## Deployment
+
+Container-based, config via environment variables — deploys to Railway from
+this repo with no code changes. See [DEPLOY.md](DEPLOY.md).
 
 Open Swagger UI at http://127.0.0.1:8000/docs
 

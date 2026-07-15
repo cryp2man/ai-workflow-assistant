@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 
 from src.api.v1.users import router as users_router
 from src.api.v1.workflow_steps import router as workflow_steps_router
@@ -7,7 +8,17 @@ from src.api.v1.workflows import router as workflows_router
 app = FastAPI(
     title="AI Workflow Assistant API",
     version="1.0.0",
+    description=(
+        "Backend engine for multi-step AI workflows (llm / http / condition). "
+        "Try it live in the interactive docs below."
+    ),
 )
+
+
+@app.get("/", include_in_schema=False)
+async def root() -> RedirectResponse:
+    """Корень ведёт на интерактивную документацию (удобно для демо-ссылки)."""
+    return RedirectResponse(url="/docs")
 
 app.include_router(users_router, prefix="/api/v1/users", tags=["Users"])
 app.include_router(

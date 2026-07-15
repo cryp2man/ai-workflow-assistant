@@ -1,3 +1,4 @@
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -7,9 +8,24 @@ class Settings(BaseSettings):
     DEBUG: bool = False
     HOST: str = "127.0.0.1"
     PORT: int = 8000
-    
-    # Мы убрали хардкод. Теперь Pydantic ОБЯЗАН найти эту переменную в окружении
+
+    # Обязательная переменная окружения (без хардкода)
     DATABASE_URL: str
+
+    @field_validator("DATABASE_URL")
+    @classmethod
+    def use_asyncpg_driver(cls, value: str) -> str:
+        """Приводим URL к async-драйверу asyncpg.
+
+        Хостинги (Railway, Heroku) выдают DATABASE_URL в формате
+        `postgres://` или `postgresql://` — SQLAlchemy async требует
+        явного `postgresql+asyncpg://`.
+        """
+        if value.startswith("postgres://"):
+            return value.replace("postgres://", "postgresql+asyncpg://", 1)
+        if value.startswith("postgresql://"):
+            return value.replace("postgresql://", "postgresql+asyncpg://", 1)
+        return value
 
     # Выбор LLM-провайдера: "openai_compatible" (облачный API) или "ollama"
     LLM_PROVIDER: str = "openai_compatible"
