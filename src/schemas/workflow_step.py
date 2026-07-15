@@ -3,7 +3,7 @@ from typing import Literal, Optional
 
 from pydantic import BaseModel, ConfigDict
 
-StepType = Literal["llm", "http"]
+StepType = Literal["llm", "http", "condition"]
 
 
 class WorkflowStepBase(BaseModel):

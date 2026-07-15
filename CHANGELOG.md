@@ -179,6 +179,17 @@ FastAPI → Services → Repositories → AsyncSession
 - Repository `list` annotations crashed on Python 3.13 (builtin shadowed
   by the `list()` method); deferred annotations via `__future__` import.
 
+## FEATURE-008 - Condition Step Type
+
+### Added
+
+- `condition` step type: a gate that evaluates an expression against the
+  execution context and stops the workflow when it is false.
+- Safe condition evaluator (no `eval`): `LEFT <op> RIGHT` with operators
+  `contains`, `not_contains`, `==`, `!=`; operands support `{{variables}}`.
+- Runs stopped by a condition get status `stopped` and a `stopped_reason`.
+- Unit tests for the condition evaluator.
+
 ## Infrastructure
 
 ### Added

@@ -7,7 +7,7 @@ Think of it as a simplified, self-hosted core of platforms like n8n AI / Dify �
 ## Features
 
 - **Workflow engine** — executes ordered chains of steps; template variables (`{{previous_response}}`, `{{stepN}}`, `{{workflow_name}}`) pass context between steps
-- **Step types** — `llm` steps call the model, `http` steps fetch external data (GET) into the workflow context
+- **Step types** — `llm` steps call the model, `http` steps fetch external data (GET) into the workflow context, `condition` steps gate execution and stop the run when a check fails
 - **Run history** — every execution is persisted as a `WorkflowRun` with status, result, timings and errors
 - **Full REST API** — CRUD for users, workflows and workflow steps, plus a run endpoint; interactive docs via Swagger
 - **Pluggable LLM providers** — a `BaseLLMProvider` abstraction with two implementations:
@@ -133,7 +133,7 @@ This project is developed with AI assistance (Claude Code) under strict task spe
 - [x] Per-step responses persisted in run history
 - [x] Dockerfile for the app + one-command deployment
 - [x] HTTP request step type (fetch external data into the workflow context)
-- [ ] Condition step type
+- [x] Condition step type (gate that stops the run when a check fails)
 - [ ] Telegram bot interface
 
 ## License

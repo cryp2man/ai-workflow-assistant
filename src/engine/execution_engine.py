@@ -8,6 +8,7 @@ from urllib.parse import urlparse
 import httpx
 
 from src.db.models.workflow_run import WorkflowRun
+from src.engine.conditions import evaluate_condition
 from src.llm.base import BaseLLMProvider
 from src.prompts.builder import PromptBuilder
 from src.services.workflow_run_service import WorkflowRunService
@@ -108,9 +109,31 @@ class ExecutionEngine:
         previous_response = ""
         variables: dict[str, str] = {"workflow_name": workflow.title}
         step_results: list[dict] = []
+        stopped_reason: str | None = None
         try:
             for step in steps:
                 logger.info("Executing step %s: %s", step.step_order, step.title)
+
+                # Condition-шаг — «ворота»: не производит контент, а решает,
+                # продолжать ли выполнение. Обрабатываем до generic-ветки.
+                if step.step_type == "condition":
+                    passed = evaluate_condition(step.prompt, variables)
+                    verdict = "passed" if passed else "failed"
+                    step_results.append(
+                        {
+                            "step_order": step.step_order,
+                            "title": step.title,
+                            "response": f"condition {verdict}",
+                        }
+                    )
+                    logger.info("Condition step %s: %s", step.step_order, verdict)
+                    if not passed:
+                        stopped_reason = (
+                            f"stopped by condition at step {step.step_order}"
+                        )
+                        break
+                    continue
+
                 prompt = self.prompt_builder.build_prompt(step.prompt, variables)
                 start_time = time.perf_counter()
                 response = await self._execute_step(step.step_type, prompt)
@@ -136,9 +159,13 @@ class ExecutionEngine:
             await self.workflow_run_service.repository.session.commit()
             raise
 
-        workflow_run.status = "completed"
+        workflow_run.status = "stopped" if stopped_reason else "completed"
         workflow_run.finished_at = datetime.utcnow()
-        workflow_run.result = {"response": previous_response, "steps": step_results}
+        workflow_run.result = {
+            "response": previous_response,
+            "steps": step_results,
+            "stopped_reason": stopped_reason,
+        }
         await self.workflow_run_service.repository.session.commit()
 
         return workflow_run
