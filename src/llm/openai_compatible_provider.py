@@ -13,24 +13,34 @@ class OpenAICompatibleProvider(BaseLLMProvider):
     """
 
     def __init__(self, settings: Settings) -> None:
-        if not settings.LLM_API_KEY:
-            raise ValueError(
-                "LLM_API_KEY is not set. "
-                "Add it to .env or switch LLM_PROVIDER to 'ollama'."
-            )
         self.settings = settings
-        self.client = AsyncOpenAI(
-            base_url=settings.LLM_BASE_URL,
-            api_key=settings.LLM_API_KEY,
-            timeout=settings.LLM_TIMEOUT,
-        )
+        self._client: AsyncOpenAI | None = None
+
+    def _get_client(self) -> AsyncOpenAI:
+        """Ленивая инициализация клиента.
+
+        Ключ проверяется здесь, а не в __init__: workflow из одних
+        http/condition-шагов должен выполняться без LLM_API_KEY.
+        """
+        if self._client is None:
+            if not self.settings.LLM_API_KEY:
+                raise ValueError(
+                    "LLM_API_KEY is not set. "
+                    "Add it to the environment or switch LLM_PROVIDER to 'ollama'."
+                )
+            self._client = AsyncOpenAI(
+                base_url=self.settings.LLM_BASE_URL,
+                api_key=self.settings.LLM_API_KEY,
+                timeout=self.settings.LLM_TIMEOUT,
+            )
+        return self._client
 
     async def generate(
         self,
         prompt: str,
     ) -> str:
         """Сгенерировать ответ LLM на переданный prompt."""
-        response = await self.client.chat.completions.create(
+        response = await self._get_client().chat.completions.create(
             model=self.settings.LLM_MODEL,
             messages=[
                 {
