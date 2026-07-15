@@ -1,6 +1,8 @@
-from contextlib import asynccontextmanager
-from fastapi import FastAPI
 import logging
+from contextlib import asynccontextmanager
+
+from fastapi import FastAPI
+
 from src.core.logging import setup_logging
 
 logger = logging.getLogger(__name__)

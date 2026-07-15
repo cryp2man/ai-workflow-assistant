@@ -2,7 +2,7 @@ import asyncio
 import ipaddress
 import logging
 import time
-from datetime import datetime
+from datetime import UTC, datetime
 from urllib.parse import urlparse
 
 import httpx
@@ -97,7 +97,7 @@ class ExecutionEngine:
         workflow_run = WorkflowRun(
             workflow_id=workflow.id,
             status="running",
-            started_at=datetime.utcnow(),
+            started_at=datetime.now(UTC),
             finished_at=None,
             result=None,
             error=None,
@@ -154,13 +154,13 @@ class ExecutionEngine:
         except Exception as e:
             logger.error("Step failed: %s", step.step_order)
             workflow_run.status = "failed"
-            workflow_run.finished_at = datetime.utcnow()
+            workflow_run.finished_at = datetime.now(UTC)
             workflow_run.error = str(e)
             await self.workflow_run_service.repository.session.commit()
             raise
 
         workflow_run.status = "stopped" if stopped_reason else "completed"
-        workflow_run.finished_at = datetime.utcnow()
+        workflow_run.finished_at = datetime.now(UTC)
         workflow_run.result = {
             "response": previous_response,
             "steps": step_results,

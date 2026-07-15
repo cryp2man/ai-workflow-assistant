@@ -1,8 +1,13 @@
-# Полное содержимое файла src/db/models/user.py
+from typing import TYPE_CHECKING
 
 from sqlalchemy import BigInteger
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+
 from src.db.base import Base
+
+if TYPE_CHECKING:
+    from src.db.models.workflow import Workflow
+
 
 class User(Base):
     __tablename__ = "users"
@@ -18,5 +23,7 @@ class User(Base):
         index=True,
     )
 
-    # Связь с таблицей workflows
-    workflows: Mapped[list["Workflow"]] = relationship(back_populates="user", cascade="all, delete-orphan")
+    workflows: Mapped[list["Workflow"]] = relationship(
+        back_populates="user",
+        cascade="all, delete-orphan",
+    )

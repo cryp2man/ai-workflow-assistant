@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 
 from sqlalchemy import JSON, DateTime, ForeignKey, String, Text
@@ -23,7 +23,7 @@ class WorkflowRun(Base):
     started_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         nullable=False,
-        default=datetime.utcnow,
+        default=lambda: datetime.now(UTC),
     )
     finished_at: Mapped[datetime | None] = mapped_column(
         DateTime(timezone=True),

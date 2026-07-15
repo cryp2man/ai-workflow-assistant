@@ -1,7 +1,13 @@
+from typing import TYPE_CHECKING
+
 from sqlalchemy import ForeignKey, String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.db.base import Base
+
+if TYPE_CHECKING:
+    from src.db.models.user import User
+
 
 class Workflow(Base):
     __tablename__ = "workflows"
@@ -9,11 +15,12 @@ class Workflow(Base):
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     title: Mapped[str] = mapped_column(String(255), index=True)
     description: Mapped[str | None] = mapped_column(Text, nullable=True)
-    status: Mapped[str] = mapped_column(String(50), default="pending") # pending, in_progress, completed
-    
-    # Внешний ключ (Foreign Key) - хранит ID владельца из таблицы users
-    # ondelete="CASCADE" означает, что если удалить пользователя, все его процессы тоже удалятся
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"))
-    
-    # Виртуальная связь для удобной работы в Python (алхимия сама подтянет объект пользователя)
+    # Статусы: pending, in_progress, completed
+    status: Mapped[str] = mapped_column(String(50), default="pending")
+
+    # ondelete="CASCADE": при удалении пользователя удаляются и его workflows
+    user_id: Mapped[int] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE")
+    )
+
     user: Mapped["User"] = relationship(back_populates="workflows")

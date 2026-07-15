@@ -2,25 +2,28 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
-from src.db.session import get_db
-from src.db.models.workflow import Workflow
 from src.db.models.user import User
+from src.db.models.workflow import Workflow
 from src.db.models.workflow_step import WorkflowStep
+from src.db.session import get_db
 from src.dependencies import (
     get_execution_engine,
     get_workflow_run_service,
     get_workflow_step_service,
 )
 from src.engine.execution_engine import ExecutionEngine, UnsafeUrlError
-from src.services.workflow_run_service import WorkflowRunService
-from src.services.workflow_step_service import WorkflowStepService
 from src.schemas.workflow import WorkflowCreate, WorkflowResponse, WorkflowUpdate
 from src.schemas.workflow_step import WorkflowStepCreate, WorkflowStepResponse
+from src.services.workflow_run_service import WorkflowRunService
+from src.services.workflow_step_service import WorkflowStepService
 
 router = APIRouter()
 
 @router.post("/", response_model=WorkflowResponse)
-async def create_workflow(workflow_in: WorkflowCreate, db: AsyncSession = Depends(get_db)):
+async def create_workflow(
+    workflow_in: WorkflowCreate,
+    db: AsyncSession = Depends(get_db),
+):
     # 1. Сначала проверяем, существует ли вообще такой пользователь
     # Мы используем db.get, так как ищем по Primary Key (ID)
     user = await db.get(User, workflow_in.user_id)

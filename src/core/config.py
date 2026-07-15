@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+
 class Settings(BaseSettings):
     PROJECT_NAME: str = "AI Workflow Assistant"
     API_VERSION: str = "1.0.0"
@@ -24,7 +25,12 @@ class Settings(BaseSettings):
     OLLAMA_MODEL: str = "qwen3:8b"
     OLLAMA_TIMEOUT: int = 120
 
-    # Эта настройка говорит Pydantic: "Иди и прочитай файл .env в корне проекта"
-    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
+    # Читаем .env из корня проекта
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore",
+    )
+
 
 settings = Settings()
