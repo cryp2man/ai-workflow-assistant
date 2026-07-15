@@ -33,3 +33,9 @@ htmlcov/
 # OS
 .DS_Store
 Thumbs.db
+
+# Obsidian vault and personal notes (not part of the project)
+.obsidian/
+Без названия*
+2026-07-05.md
+for_me.md
