@@ -47,6 +47,19 @@ LLM_API_KEY  = <your free Groq key from https://console.groq.com/keys>
 > The key lives server-side in Railway and is never exposed to visitors.
 > `http` and `condition` steps work without any key.
 
+### 4a. (Optional) Enable the Telegram bot
+
+Create a bot with [@BotFather](https://t.me/BotFather) (`/newbot`) and add its
+token to the **app** service variables:
+
+```
+BOT_TOKEN = <token from BotFather>
+```
+
+The bot starts automatically inside the app process (long polling) and shares
+the same engine. Without `BOT_TOKEN` the bot stays disabled — the API is
+unaffected. In Telegram: `/start` → `/demo` → `/workflows` → tap to run.
+
 ### 5. Get the public URL
 
 App service → **Settings** → **Networking** → **Generate Domain**.

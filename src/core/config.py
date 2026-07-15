@@ -41,6 +41,9 @@ class Settings(BaseSettings):
     OLLAMA_MODEL: str = "qwen3:8b"
     OLLAMA_TIMEOUT: int = 120
 
+    # Telegram-бот: если пусто — бот не запускается (например, локально и в CI)
+    BOT_TOKEN: str = ""
+
     # Читаем .env из корня проекта
     model_config = SettingsConfigDict(
         env_file=".env",

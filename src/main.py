@@ -4,6 +4,7 @@ from fastapi.responses import RedirectResponse
 from src.api.v1.users import router as users_router
 from src.api.v1.workflow_steps import router as workflow_steps_router
 from src.api.v1.workflows import router as workflows_router
+from src.core.lifespan import lifespan
 
 app = FastAPI(
     title="AI Workflow Assistant API",
@@ -12,6 +13,7 @@ app = FastAPI(
         "Backend engine for multi-step AI workflows (llm / http / condition). "
         "Try it live in the interactive docs below."
     ),
+    lifespan=lifespan,
 )
 
 

@@ -190,6 +190,30 @@ FastAPI → Services → Repositories → AsyncSession
 - Runs stopped by a condition get status `stopped` and a `stopped_reason`.
 - Unit tests for the condition evaluator.
 
+## Telegram Bot
+
+### Added
+
+- Telegram bot interface (aiogram v3) to run workflows from chat:
+  `/start`, `/demo`, `/workflows` (inline buttons), tap-to-run with
+  per-step results, `/help`.
+- Bot reuses the same engine and services; starts as a background task in
+  the app lifespan only when `BOT_TOKEN` is set (disabled locally / in CI).
+- Wired the previously unused `lifespan` into the FastAPI app.
+
+## Deployment
+
+### Added
+
+- Deployed to Railway with a public demo (`/` redirects to interactive docs).
+- `DATABASE_URL` scheme normalized to asyncpg; app binds to `$PORT`.
+- `railway.json`, `DEPLOY.md`, `scripts/seed_demo.py`, root redirect.
+
+### Fixed
+
+- LLM client is constructed lazily so http/condition workflows run without
+  an LLM key (eager construction returned 500 on execute).
+
 ## Infrastructure
 
 ### Added
