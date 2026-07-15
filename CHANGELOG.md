@@ -136,3 +136,22 @@ FastAPI → Services → Repositories → AsyncSession
 
 - Test database creation is intentionally postponed.
 - Rollback strategy will be implemented separately.
+
+## FEATURE-006 - Template Variables in Workflow Steps
+
+### Added
+
+- PromptBuilder substitutes `{{variables}}` in step prompts.
+- Execution context variables: `{{previous_response}}`, `{{stepN}}`, `{{workflow_name}}`.
+- Per-step responses are persisted in `WorkflowRun.result["steps"]`.
+- Unit tests for PromptBuilder.
+
+### Changed
+
+- ExecutionEngine no longer hard-appends "Previous response:" to prompts;
+  context passing is explicit via template variables in step prompts.
+
+### Fixed
+
+- Unreliable context passing between steps (~50% of runs lost context
+  with llama-3.3 due to the implicit prompt format).

@@ -124,7 +124,8 @@ This project is developed with AI assistance (Claude Code) under strict task spe
 - [x] Workflow / step / run domain model and CRUD API
 - [x] End-to-end LLM execution pipeline with run history
 - [x] Cloud LLM provider with free OpenAI-compatible APIs
-- [ ] Template variables between steps (`{{previous_response}}`, `{{stepN}}`)
+- [x] Template variables between steps (`{{previous_response}}`, `{{stepN}}`, `{{workflow_name}}`)
+- [x] Per-step responses persisted in run history
 - [ ] Step types beyond LLM (HTTP request, condition)
 - [ ] Telegram bot interface
 - [ ] Dockerfile for the app + one-command deployment

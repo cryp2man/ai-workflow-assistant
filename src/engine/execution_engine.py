@@ -57,19 +57,25 @@ class ExecutionEngine:
         )
 
         previous_response = ""
+        variables: dict[str, str] = {"workflow_name": workflow.title}
+        step_results: list[dict] = []
         try:
             for step in steps:
                 logger.info("Executing step %s: %s", step.step_order, step.title)
-                if previous_response == "":
-                    prompt = self.prompt_builder.build_prompt(step.prompt)
-                else:
-                    prompt = self.prompt_builder.build_prompt(
-                        f"{step.prompt}\n\nPrevious response:\n\n{previous_response}"
-                    )
+                prompt = self.prompt_builder.build_prompt(step.prompt, variables)
                 start_time = time.perf_counter()
                 response = await self.llm_provider.generate(prompt)
                 elapsed = time.perf_counter() - start_time
                 previous_response = response
+                variables["previous_response"] = response
+                variables[f"step{step.step_order}"] = response
+                step_results.append(
+                    {
+                        "step_order": step.step_order,
+                        "title": step.title,
+                        "response": response,
+                    }
+                )
                 logger.info(
                     "Step completed: %s (%.3fs)", step.step_order, elapsed
                 )
@@ -83,7 +89,7 @@ class ExecutionEngine:
 
         workflow_run.status = "completed"
         workflow_run.finished_at = datetime.utcnow()
-        workflow_run.result = {"response": previous_response}
+        workflow_run.result = {"response": previous_response, "steps": step_results}
         await self.workflow_run_service.repository.session.commit()
 
         return workflow_run
