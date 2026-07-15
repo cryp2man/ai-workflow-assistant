@@ -5,10 +5,17 @@ from sqlalchemy.future import select
 from src.db.session import get_db
 from src.db.models.workflow import Workflow
 from src.db.models.user import User
-from src.dependencies import get_execution_engine, get_workflow_run_service
+from src.db.models.workflow_step import WorkflowStep
+from src.dependencies import (
+    get_execution_engine,
+    get_workflow_run_service,
+    get_workflow_step_service,
+)
 from src.engine.execution_engine import ExecutionEngine
 from src.services.workflow_run_service import WorkflowRunService
+from src.services.workflow_step_service import WorkflowStepService
 from src.schemas.workflow import WorkflowCreate, WorkflowResponse, WorkflowUpdate
+from src.schemas.workflow_step import WorkflowStepCreate, WorkflowStepResponse
 
 router = APIRouter()
 
@@ -84,6 +91,38 @@ async def get_workflow_runs(
         }
         for run in runs
     ]
+
+@router.post("/{workflow_id}/steps", response_model=WorkflowStepResponse)
+async def create_workflow_step(
+    workflow_id: int,
+    step_in: WorkflowStepCreate,
+    db: AsyncSession = Depends(get_db),
+    workflow_step_service: WorkflowStepService = Depends(get_workflow_step_service),
+):
+    """
+    Создать шаг рабочего процесса
+    """
+    workflow = await db.get(Workflow, workflow_id)
+    if not workflow:
+        raise HTTPException(status_code=404, detail="Workflow not found")
+
+    new_step = WorkflowStep(
+        workflow_id=workflow_id,
+        title=step_in.title,
+        prompt=step_in.prompt,
+        step_order=step_in.step_order,
+    )
+    return await workflow_step_service.create_step(new_step)
+
+@router.get("/{workflow_id}/steps", response_model=list[WorkflowStepResponse])
+async def get_workflow_steps(
+    workflow_id: int,
+    workflow_step_service: WorkflowStepService = Depends(get_workflow_step_service),
+):
+    """
+    Получить все шаги рабочего процесса в порядке step_order
+    """
+    return await workflow_step_service.list_workflow_steps(workflow_id)
 
 @router.patch("/{workflow_id}", response_model=WorkflowResponse)
 async def update_workflow(
