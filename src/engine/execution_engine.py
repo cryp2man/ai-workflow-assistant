@@ -65,8 +65,9 @@ async def validate_http_step_url(url: str) -> None:
 class ExecutionEngine:
     """Движок выполнения Workflow.
 
-    Первая итерация: фиксирует факт запуска (WorkflowRun со статусом
-    "running"). Завершение, ошибки и LLM-шаги — в следующих задачах.
+    Последовательно выполняет шаги (llm / http / condition), пробрасывает
+    контекст через шаблонные переменные и фиксирует запуск в WorkflowRun:
+    статус (completed / stopped / failed), результат и ответы по шагам.
     """
 
     def __init__(

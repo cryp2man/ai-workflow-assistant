@@ -1,103 +1,38 @@
-# AI Workflow Assistant
+# AI Workflow Assistant — Tasks
 
-## Development Tasks
+Правило: одна задача → один коммит → проверка (ruff + pytest) → следующая.
+Детальные спеки задач — в `prompts/`.
 
-Project Status: 🟡 In Progress
+## Done
 
----
+### Инфраструктура и фундамент
+- [x] Структура проекта (uv), Ruff, pytest, .gitignore, .env.example
+- [x] FastAPI-приложение, конфигурация (Pydantic Settings), логирование, lifespan
+- [x] Health endpoint, версионирование API (`/api/v1`)
+- [x] PostgreSQL + Docker Compose, SQLAlchemy 2.0 (async), Alembic
+- [x] Dockerfile приложения + one-command deploy, GitHub Actions CI
 
-# Phase 1 - Project Setup
+### Архитектура
+- [x] Repository layer (BaseRepository + репозитории сущностей)
+- [x] Service layer (границы транзакций в сервисах)
+- [x] Dependency Injection (`src/dependencies`)
 
-- [x] Создать Git-репозиторий
-- [x] Настроить структуру проекта
-- [x] Создать виртуальное окружение
-- [x] Настроить requirements.txt
-- [x] Настроить .gitignore
-- [x] Создать .env.example
-- [x] Настроить Ruff
-- [x] Настроить Black
-- [x] Настроить Pytest
+### Домен и API
+- [x] Модели: User, Workflow, WorkflowStep, WorkflowRun
+- [x] CRUD API: users, workflows, workflow steps
+- [x] Провайдер-архитектура LLM (облачные API + Ollama fallback)
 
----
+### Движок
+- [x] ExecutionEngine: последовательное выполнение шагов, история запусков
+- [x] Шаблонные переменные контекста (`{{previous_response}}`, `{{stepN}}`, `{{workflow_name}}`)
+- [x] Типы шагов: llm, http (с SSRF-защитой), condition (ворота)
 
-# Phase 2 - Backend
+### Качество
+- [x] Тесты: unit (prompt builder, conditions, url validation) + integration (engine, repo)
+- [x] Чистый ruff по src и tests, CI зелёный
 
-- [x] Установить FastAPI
-- [x] Создать приложение
-- [x] Настроить структуру src
-- [ ] Создать endpoint /health
-- [x] Проверить Swagger
-
----
-
-# Phase 3 - Database
-
-- [ ] Установить PostgreSQL
-- [ ] Настроить SQLAlchemy
-- [ ] Настроить Alembic
-- [ ] Создать модели
-- [ ] Создать миграцию
-- [ ] Проверить подключение
-
----
-
-# Phase 4 - Telegram Bot
-
-- [ ] Создать Telegram Bot
-- [ ] Подключить Backend
-- [ ] Реализовать команду /start
-- [ ] Реализовать сбор данных
-- [ ] Реализовать подтверждение заявки
-
----
-
-# Phase 5 - AI
-
-- [ ] Подключить LLM API
-- [ ] Создать AI Service
-- [ ] Реализовать анализ заявки
-- [ ] Сохранить результат анализа
-
----
-
-# Phase 6 - Dashboard
-
-- [ ] Создать Dashboard
-- [ ] Отобразить список заявок
-- [ ] Добавить карточку заявки
-- [ ] Добавить изменение статуса
-
----
-
-# Phase 7 - Docker
-
-- [ ] Создать Dockerfile
-- [ ] Создать docker-compose.yml
-- [ ] Проверить запуск контейнеров
-
----
-
-# Phase 8 - Testing
-
-- [ ] Проверить Backend
-- [ ] Проверить Bot
-- [ ] Проверить AI
-- [ ] Проверить Database
-- [ ] Проверить Dashboard
-
----
-
-# Phase 9 - Release
-
-- [ ] Обновить README
-- [ ] Обновить CHANGELOG
-- [ ] Проверить документацию
-- [ ] Создать Release v1.0
-
----
-
-# Notes
-
-Использовать правило:
-
-Одна задача → Один коммит → Проверка → Следующая задача.
+## Next
+- [ ] Telegram-бот как интерфейс (`src/bot`)
+- [ ] Двусторонние связи Workflow.steps / Workflow.runs
+- [ ] Расширение condition (числовые операторы, ветвление)
+- [ ] Деплой на хостинг (Railway / Render) + публичная демо-ссылка
