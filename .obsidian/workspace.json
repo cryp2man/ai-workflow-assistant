@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "540156f39d7c38f6",
+        "id": "7c62aab3a4a308cc",
         "type": "tabs",
         "children": [
           {
-            "id": "94f2a0ad776c765c",
+            "id": "28cd8f723c40ca41",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -176,8 +176,11 @@
       "bases:Создать новую базу": false
     }
   },
-  "active": "94f2a0ad776c765c",
+  "active": "28cd8f723c40ca41",
   "lastOpenFiles": [
+    "prompts/FEATURE-004.md",
+    "prompts/FEATURE-003.md",
+    "src/api/v1/workflows.py.tmp.27716.c31bdd4c4bd2",
     "src/dependencies/__pycache__/engine.cpython-314.pyc",
     "src/dependencies/__init__.py.tmp.27716.c150667bef24",
     "src/dependencies/engine.py",
@@ -187,8 +190,6 @@
     "src/dependencies/repositories.py.tmp.27716.e13c95845737",
     "src/dependencies/repositories.py.tmp.27716.c6035f84aab9",
     "src/api/v1/workflows.py.tmp.27716.464e6bb2a019",
-    "src/api/v1/workflows.py.tmp.27716.c8ba9b3bcffd",
-    "src/dependencies.py",
     "prompts/FEATURE-002.md",
     "prompts/FEATURE-001.md",
     "prompts/ENGINE-010.md",
@@ -213,7 +214,6 @@
     "prompts/ENGINE-001.md",
     "prompts/DB-005.md",
     "prompts/MODEL-001.md",
-    "prompts/SER-003.md",
     "Без названия.canvas"
   ]
 }

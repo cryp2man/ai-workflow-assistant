@@ -5,8 +5,9 @@ from sqlalchemy.future import select
 from src.db.session import get_db
 from src.db.models.workflow import Workflow
 from src.db.models.user import User
-from src.dependencies import get_execution_engine
+from src.dependencies import get_execution_engine, get_workflow_run_service
 from src.engine.execution_engine import ExecutionEngine
+from src.services.workflow_run_service import WorkflowRunService
 from src.schemas.workflow import WorkflowCreate, WorkflowResponse, WorkflowUpdate
 
 router = APIRouter()
@@ -61,6 +62,28 @@ async def execute_workflow(
         "status": workflow_run.status,
         "result": workflow_run.result,
     }
+
+@router.get("/{workflow_id}/runs")
+async def get_workflow_runs(
+    workflow_id: int,
+    workflow_run_service: WorkflowRunService = Depends(get_workflow_run_service),
+):
+    """
+    Получить историю всех запусков рабочего процесса
+    """
+    runs = await workflow_run_service.list_workflow_runs_by_workflow(workflow_id)
+
+    return [
+        {
+            "id": run.id,
+            "status": run.status,
+            "started_at": run.started_at,
+            "finished_at": run.finished_at,
+            "result": run.result,
+            "error": run.error,
+        }
+        for run in runs
+    ]
 
 @router.patch("/{workflow_id}", response_model=WorkflowResponse)
 async def update_workflow(
