@@ -10,7 +10,16 @@ class Settings(BaseSettings):
     # Мы убрали хардкод. Теперь Pydantic ОБЯЗАН найти эту переменную в окружении
     DATABASE_URL: str
 
-    # Ollama (OpenAI-совместимый локальный LLM)
+    # Выбор LLM-провайдера: "openai_compatible" (облачный API) или "ollama"
+    LLM_PROVIDER: str = "openai_compatible"
+
+    # Облачный OpenAI-совместимый API (Groq, Google AI Studio, GitHub Models)
+    LLM_BASE_URL: str = "https://api.groq.com/openai/v1"
+    LLM_API_KEY: str = ""
+    LLM_MODEL: str = "llama-3.3-70b-versatile"
+    LLM_TIMEOUT: int = 120
+
+    # Ollama (OpenAI-совместимый локальный LLM, fallback для офлайн-работы)
     OLLAMA_BASE_URL: str = "http://localhost:11434/v1"
     OLLAMA_MODEL: str = "qwen3:8b"
     OLLAMA_TIMEOUT: int = 120

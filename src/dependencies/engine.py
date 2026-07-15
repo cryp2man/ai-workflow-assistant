@@ -8,6 +8,7 @@ from src.dependencies.services import (
 )
 from src.engine.execution_engine import ExecutionEngine
 from src.llm.base import BaseLLMProvider
+from src.llm.openai_compatible_provider import OpenAICompatibleProvider
 from src.llm.openai_provider import OllamaProvider
 from src.prompts.builder import PromptBuilder
 from src.services.workflow_run_service import WorkflowRunService
@@ -21,8 +22,10 @@ def get_prompt_builder() -> PromptBuilder:
 
 
 def get_llm_provider() -> BaseLLMProvider:
-    """LLM-провайдер проекта: Ollama, настроенный через Settings."""
-    return OllamaProvider(settings)
+    """LLM-провайдер проекта, выбранный через LLM_PROVIDER в Settings."""
+    if settings.LLM_PROVIDER == "ollama":
+        return OllamaProvider(settings)
+    return OpenAICompatibleProvider(settings)
 
 
 def get_execution_engine(
