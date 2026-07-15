@@ -7,7 +7,7 @@ A backend service for building and executing multi-step AI workflows: you define
 
 Think of it as a simplified, self-hosted core of platforms like n8n AI / Dify — built from scratch to demonstrate clean backend architecture around LLM automation.
 
-**🔗 Live demo:** _<!-- DEMO_URL -->_ (interactive API docs — try it in the browser)
+**🔗 Live demo:** https://ai-workflow-app-production.up.railway.app (interactive API docs — try it in the browser)
 
 ## Features
 
