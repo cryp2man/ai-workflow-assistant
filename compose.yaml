@@ -21,6 +21,22 @@ services:
       timeout: 5s
       retries: 5
 
+  app:
+    build: .
+    container_name: ai-workflow-app
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      # Inside the Docker network the database host is the service name
+      DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ai-network
+
   pgadmin:
     image: dpage/pgadmin4:latest
     container_name: ai-workflow-pgadmin

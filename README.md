@@ -53,13 +53,17 @@ cp .env.example .env
 # Edit .env: set POSTGRES_* passwords and LLM_API_KEY
 # (free key: https://console.groq.com/keys — see options in .env.example)
 
-# 3. Start PostgreSQL + pgAdmin
-docker compose up -d
+# 3. Run everything (PostgreSQL + API + pgAdmin)
+docker compose up -d --build
+```
 
-# 4. Apply database migrations
+The `app` container applies migrations automatically on start.
+
+For local development without the app container:
+
+```bash
+docker compose up -d postgres pgadmin
 uv run alembic upgrade head
-
-# 5. Run the API
 uv run uvicorn src.main:app --reload
 ```
 
@@ -126,9 +130,9 @@ This project is developed with AI assistance (Claude Code) under strict task spe
 - [x] Cloud LLM provider with free OpenAI-compatible APIs
 - [x] Template variables between steps (`{{previous_response}}`, `{{stepN}}`, `{{workflow_name}}`)
 - [x] Per-step responses persisted in run history
+- [x] Dockerfile for the app + one-command deployment
 - [ ] Step types beyond LLM (HTTP request, condition)
 - [ ] Telegram bot interface
-- [ ] Dockerfile for the app + one-command deployment
 
 ## License
 

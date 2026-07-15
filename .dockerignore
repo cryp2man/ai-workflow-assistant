@@ -1,0 +1,29 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Virtual environments and caches
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# VCS and IDE
+.git/
+.vscode/
+.idea/
+
+# Notes and docs not needed in the image
+.obsidian/
+docs/
+prompts/
+architecture/
+*.md
+!README.md
+
+# Docker
+Dockerfile
+.dockerignore
+compose.yaml
